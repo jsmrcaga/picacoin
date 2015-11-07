@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700);
+
+body{
+	font-family: 'Roboto Slab';
+	background-color: #000223;
+	color: #FFF;
+}
+
+.main_logo{
+	height: 40px;
+}
+
+.pic-blue{
+	background-color: #000223 !important;
+}
+
+.pic-menu{
+	background-color: #FFF !important;
+	color: #000223 !important;
+}
+
+.pic-card{
+	background-color: #0B1823 !important;
+}
+
+.pic-card-title{
+	color: #B22132 !important;
+}
+
+.brand-logo{
+	color: #000223 !important;
+}
+
+.menu-icon{
+	color: #000223 !important;
+}
+
+.modal-content{
+	color: #000233;
+}
+
+.section{
+	background-color: #000223 !important;
+}
+
+.rules-picacoin{
+	font-size: 20px !important;
+}
+
+.rules-title{
+	margin-top: 30px;
+	color: #B22132 !important;
+}
+
+.first-rules-tite{
+	margin-top: 0px !important;
+}
+
+bold{
+	font-weight: bold;
+}
+
+span .small{
+	font-size:12px;
+}
+
+.modal-small{
+	width:400px !important;
+}

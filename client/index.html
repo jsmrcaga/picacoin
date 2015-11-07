@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>Pic'A Coin</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<style type="text/css">
+		@import url('css/main.css');	
+	</style>
+
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src= "js/lib/AJAXCall.js"></script>
+
+</head>
+<body>
+<div class="navbar-fixed">
+	
+	<nav class="pic-menu lighten-1" role="navigation">
+		<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><!-- <img class="main_logo" src="img/logo.png"> -->&nbsp; Pic'A ₡oin</a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="#current_match"><i class="material-icons menu-icon">flash_on</i></a></li>
+				<li><a class="modal-trigger" href="#matchModal"><i class="material-icons menu-icon">group</i></a></li>
+				<li><a class="modal-trigger" href="#statsModal"><i class="material-icons menu-icon">equalizer</i></a></li>
+				<li><a href="#rules"><i class="material-icons menu-icon">book</i></a></li>
+				<li><a class="modal-trigger" href="#loginModal"><i class="material-icons menu-icon">account_circle</i></a></li>
+
+			</ul>
+
+			<ul id="nav-mobile" class="side-nav">
+				<li><a href="#"><i class="material-icons menu-icon">flash_on</i> Matchs en Cours</a></li>
+				<li><a href="#"><i class="material-icons menu-icon">group</i> Cr&eacute;ation de Match</a></li>
+				<li><a href="#"><i class="material-icons menu-icon">equalizer</i> Statistiques</a></li>
+				<li><a href="#"><i class="material-icons menu-icon">book</i> R&egrave;gles</a></li>
+				<li><a class="modal-trigger" href="#loginModal"><i class="material-icons menu-icon">account_circle</i> Se Connecter</a></li>
+			</ul>
+			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
+</div>
+
+
+	<div class="section scrollspy no-pad-bot" id="current_match">
+		<div class="container">
+			<div class="row">
+				<h1 class="header left">Matchs en Cours</h1>
+			</div>
+
+			<div class="row">
+				<div class="col s12 m6">
+					<div class="card pic-card darken-1">
+						<div class="card-content white-text">
+							<span class="card-title pic-card-title">Tonio - Renan (5 - 4)<span class="small">(#273)</span></span>
+							</br>
+							<div class="min-match-stat">
+								<div id="match-xx-graph">
+								</div>
+							</div>
+						</div>
+						<div class="card-action">
+							<a href="#">Stats</a>
+							<a href="#">Tonio</a>
+							<a href='#'>Renan</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m6">
+					<div class="card pic-card darken-1">
+						<div class="card-content white-text">
+							<span class="card-title pic-card-title">Match 1</span>
+						</div>
+						<div class="card-action">
+							<a href="#">Stats</a>
+							<a href="#">Participant1</a>
+							<a href='#'>Participant2</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+<div class="section scrollspy  no-pad-bot" id="rules">
+	<div class="container">
+		<div class="row">
+			<h1 class="header left">R&egrave;gles</h1>
+		</div>
+
+		<div class="row">
+				<div class="col s12 m12">
+					<div class="card pic-card darken-1">
+						<div class="card-content white-text rules-picacoin">
+							<h4 class="rules-title first-rules-title">Objectif</h4>
+									L'objectif du jeu est de rentrer une pi&egrave;ce de 20 Centimes d'Euro dans l'ecocup de votre adversaire, comme le montre le sch&eacute;ma suivant:
+									</br><img src=""></br>
+									<ul>
+										<li>
+											Si la pi&egrave;ce rentre dans l'ecocup sans toucher le sol (c-a-d, d'un coup), le joueur marque <bold>2 points</bold>.
+										</li>
+										<li>
+									 		Si la pi&egrave;ce effectue un ou plusieurs rebonds sur le sol, le joueur marque <bold>1 point</bold>.	
+										</li>
+									</ul>
+							<h4 class="rules-title">R&eacute;mun&eacute;ration</h4>
+									Chaque point marqu&eacute; est &eacute;quivalent &agrave; une bi&egrave;re. C'est-&agrave;-dire que le score final est calcul&eacute; de la facon suivante:
+									</br></br>
+									<code>
+										score = |score_j1 - score_j2|;
+									</code>
+									</br></br>
+									C'est donc au joueur perdant (avec le plus petit nombre de points) de payer <code>score</code> bi&egrave;res au gagnant. Le paiement de la dette peut avoir lieu d&egrave;s que le joueur gagnant le d&eacute;cide. 
+							<h4 class="rules-title">Dur&eacute;e</h4>
+									Chaque partie a une dur&eacute; indetermin&eacute;e. &Agrave; l'exception des tournois, o&ugrave; chaque partie ne durera pas plus de 30 minutes.
+									Chaque partie se d&eacute;roule avant l'ouverture d&eacute;bit au Pic'Asso, ou apr&egrave;s 19h15.
+							<h4	class="rules-title">Interdictions</h4>
+									Il est interdit de:
+									<ul>
+										<li>
+											Attraper la pi&egrave;ce lanc&eacute;e par votre adversaire dans l'air.
+										</li>
+										<li>
+											Attraper la pi&egrave;ce lanc&eacute;e par votre adversaire apr&egrave;s un seul rebond.
+										</li>
+										<li>
+											Bouger votre ecocup si la pi&egrave;ce est en l'air.
+										</li>
+										<li>
+											Lancer la pi&egrave;ce d'une distance inf&eacute;rieure &agrave; celle des deux ecocups.
+										</li>
+									</ul>
+								<h4 class="rules-title">R&eacute;demption</h4>
+									Lorsqu'un point est marqu&eacute; par un joueur, avant de payer sa dette, le joueur perdant &agrave; le droit &agrave; un dernier tir, nomm&eacute; de r&eacute;demption, pour essayer d'&eacute;galer le score. Cette r&egrave;gle reste valable si la diff&eacute;rence de points entre les deux joueurs est sup&eacute;rieure &agrave; 3.
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+<!-- *********************************** -->
+					<!-- MODALS -->
+<!-- *********************************** -->
+<div id="loginModal" class="modal modal-small">
+		<div class="modal-content">
+			<h4>Login</h4>
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">account_circle</i>
+          <input placeholder="login" id="login_CAS" type="text" class="validate">
+          <label for="first_name">Login</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">lock_outline</i>
+					<input placeholder="password" id="pass_CAS" type="password" class="validate">
+          <label for="first_name">Password</label>
+        </div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn" id="login_button">Login</a>
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		</div>
+</div>
+
+
+<div id="statsModal" class="modal">
+	<div class="modal-content">
+		<h4>Statistiques</h4>
+		<div class="row">
+			
+		</div>
+	</div>
+</div>
+
+<div id="matchModal" class="modal">
+	<div class="modal-content">
+		<h4>Cr&eacute;ation de Match</h4>
+		<div class="row">
+			
+		</div>
+	</div>
+</div>
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="js/materialize.js"></script>
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="js/init.js"></script>
+
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+	    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+	  $('.modal-trigger').leanModal();
+	});
+
+	$(document).ready(function(){
+    $('.scrollspy').scrollSpy();
+  });
+        
+	</script>
+
+	<script type="text/javascript" src="js/test-graph.js"></script>
+	<script type="text/javascript" src="js/lib/MatchCurrent.js"></script>
+	</body>
+</html>
