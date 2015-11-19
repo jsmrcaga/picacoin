@@ -67,3 +67,30 @@ span .small{
 .modal-small{
 	width:400px !important;
 }
+
+.match_title{
+	font-size: 20px;
+	margin-right: 50px;
+}
+
+#statsModal .row{
+	text-align:center;
+	margin: 0 auto;
+}
+
+.card-action a {
+	cursor: pointer;
+}
+
+#statsModal .modal-content .row {
+	margin-top:15px;
+}
+
+#statsModal .modal-content .row .match_title{
+	width: 40% !important;
+	display: inline-flex;
+}
+
+.stats-button{
+	margin-left: 10px;
+}

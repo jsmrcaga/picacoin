@@ -1,8 +1,10 @@
 function AJAXCall (params){
-	//params = url, method, callback, data, async, 
+	//params = url, method, callback, data, async, debug
 	if (typeof params == 'undefined'){
 		throw new Error("Parameters are required");
 	}
+
+	if(typeof params.debug == 'undefined' || params.debug == null) params.debug = false; 
 
 	if (typeof params.url == 'undefined'){
 		throw new Error("URL is required for AJAXCall");
@@ -17,6 +19,8 @@ function AJAXCall (params){
 		if (xml.readyState == 4 && xml.status == 200){
 			if (typeof params.callback != 'undefined') params.callback(xml.responseText);
 			return xml.responseText;
+		}else{
+			if(params.debug) console.log("XMl Error: readyState: ", xml.readyState, " status:", xml.status);
 		}
 	};
 
@@ -31,6 +35,7 @@ function AJAXCall (params){
 
 		if (typeof params.data == 'undefined'){
 			xml.open(params.method, params.url, async);
+			xml.setRequestHeader("Content-Type", params.app || "application/json");
 			xml.send();
 		}else{
 			var url = (params.url.substring(params.url.length-1, params.url.length) == "/")? "?" : "/?";
@@ -40,13 +45,15 @@ function AJAXCall (params){
 			url = url.substring(0,url.length-1);
 			params.url += url;
 			xml.open(params.method, params.url, async);
+			xml.setRequestHeader("Content-Type", params.app || "application/json");
 			xml.send();
 		}
 
 	}else if(params.method == "POST" || params.method == "PUT"){
 		xml.open(params.method, params.url, async);
+		xml.setRequestHeader("Content-Type", params.app || "application/json");
 		if (typeof params.data != 'undefined'){
-			xml.send(params.data);
+			xml.send(JSON.stringify(params.data));
 		}else{
 			xml.send();
 		}

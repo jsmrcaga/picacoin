@@ -24,19 +24,19 @@
 		<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><!-- <img class="main_logo" src="img/logo.png"> -->&nbsp; Pic'A ₡oin</a>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="#current_match"><i class="material-icons menu-icon">flash_on</i></a></li>
-				<li><a class="modal-trigger" href="#matchModal"><i class="material-icons menu-icon">group</i></a></li>
-				<li><a class="modal-trigger" href="#statsModal"><i class="material-icons menu-icon">equalizer</i></a></li>
 				<li><a href="#rules"><i class="material-icons menu-icon">book</i></a></li>
-				<li><a class="modal-trigger" href="#loginModal"><i class="material-icons menu-icon">account_circle</i></a></li>
+				<li><a class="modal-trigger" href="#matchModal" id="showMatchCreation"><i class="material-icons menu-icon">add</i></a></li>
+				<li><a class="modal-trigger" href="#statsModal" id="showStats"><i class="material-icons menu-icon">equalizer</i></a></li>
+				<li><a class="" href="#" id="loginCAS"><i class="material-icons menu-icon">account_circle</i></a></li>
 
 			</ul>
 
 			<ul id="nav-mobile" class="side-nav">
 				<li><a href="#"><i class="material-icons menu-icon">flash_on</i> Matchs en Cours</a></li>
-				<li><a href="#"><i class="material-icons menu-icon">group</i> Cr&eacute;ation de Match</a></li>
-				<li><a href="#"><i class="material-icons menu-icon">equalizer</i> Statistiques</a></li>
 				<li><a href="#"><i class="material-icons menu-icon">book</i> R&egrave;gles</a></li>
-				<li><a class="modal-trigger" href="#loginModal"><i class="material-icons menu-icon">account_circle</i> Se Connecter</a></li>
+				<li><a href="#"><i class="material-icons menu-icon">add</i> Cr&eacute;ation de Match</a></li>
+				<li><a href="#"><i class="material-icons menu-icon">equalizer</i> Statistiques</a></li>
+				<li><a class="" href="#"><i class="material-icons menu-icon">account_circle</i> Se Connecter</a></li>
 			</ul>
 			<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		</div>
@@ -45,42 +45,9 @@
 
 
 	<div class="section scrollspy no-pad-bot" id="current_match">
-		<div class="container">
+		<div class="container" id="current_match_container">
 			<div class="row">
 				<h1 class="header left">Matchs en Cours</h1>
-			</div>
-
-			<div class="row">
-				<div class="col s12 m6">
-					<div class="card pic-card darken-1">
-						<div class="card-content white-text">
-							<span class="card-title pic-card-title">Tonio - Renan (5 - 4)<span class="small">(#273)</span></span>
-							</br>
-							<div class="min-match-stat">
-								<div id="match-xx-graph">
-								</div>
-							</div>
-						</div>
-						<div class="card-action">
-							<a href="#">Stats</a>
-							<a href="#">Tonio</a>
-							<a href='#'>Renan</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col s12 m6">
-					<div class="card pic-card darken-1">
-						<div class="card-content white-text">
-							<span class="card-title pic-card-title">Match 1</span>
-						</div>
-						<div class="card-action">
-							<a href="#">Stats</a>
-							<a href="#">Participant1</a>
-							<a href='#'>Participant2</a>
-						</div>
-					</div>
-				</div>
 			</div>
 
 		</div>
@@ -171,10 +138,9 @@
 
 <div id="statsModal" class="modal">
 	<div class="modal-content">
-		<h4>Statistiques</h4>
-		<div class="row">
-			
-		</div>
+		<h4 id="statsTitle">Statistiques</h4>
+		<h5>Mes matchs en cours</h5>
+		
 	</div>
 </div>
 
@@ -182,8 +148,26 @@
 	<div class="modal-content">
 		<h4>Cr&eacute;ation de Match</h4>
 		<div class="row">
-			
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">account_circle</i>
+				<input id="player_1_n_match" type="text"/ disabled>
+				<!-- <label for="player_1_n_match">Joueur 1</label> -->
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">account_circle</i>
+				<input id="player_2_n_match" type="text"/>
+				<label for="player_2_n_match">Joueur 2</label>
+			</div>
+			<div class="input-field col s12 m12">
+				<i class="material-icons prefix">bookmark_border</i>
+				<input id="n_match_name" type="text"/>
+				<label for="n_match_name">Nom du Match (laisser vide pour rien)</label>
+			</div>
 		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn" id="create_n_match_button">Creer</a>
+		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Abandonner</a>
 	</div>
 </div>
 	<!--  Scripts-->
@@ -207,5 +191,6 @@
 
 	<script type="text/javascript" src="js/test-graph.js"></script>
 	<script type="text/javascript" src="js/lib/MatchCurrent.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>
