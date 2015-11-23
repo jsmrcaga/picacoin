@@ -168,7 +168,8 @@ app.get("/picacoin/matches/stats", function (req, res, err) {
 
 app.get("/picacoin/matches/current", function (req, res, err) {
 	getConnection();
-	var sql = "SELECT `id`,`name`,`player1`,`player2` FROM `match`WHERE `in_course`=1";
+	// var sql = "SELECT `id`,`name`,`player1`,`player2` FROM `match`WHERE `in_course`=1";
+	var sql = "SELECT m.*,u1.name as \"name_p1\", u1.last_name as \"lname_p1\",  u2.name as \"name_p2\", u2.last_name as \"lname_p2\" FROM `match` as m, `users` as u1, `users` as u2 WHERE m.in_course = 1 AND u1.login = m.player1 AND u2.login = m.player2";
 	connection.query(sql, function(err, results){
 		if(err){
 			sendErr(err, res);
@@ -180,8 +181,16 @@ app.get("/picacoin/matches/current", function (req, res, err) {
 			resp.push({
 				match_id: results[i]['id'],
 				name: results[i]['name'],
-				player1: results[i]['player1'],
-				player2: results[i]['player2']
+				player1 : {
+					name: results[i]['name_p1'],
+					last_name: results[i]['lname_p1'],
+					login: results[i]['player1'],
+				},
+				player2 : {
+					name: results[i]['name_p2'],
+					last_name: results[i]['lname_p2'],
+					login: results[i]['player2'],	
+				}
 			});
 		}
 
@@ -316,10 +325,10 @@ app.get("/picacoin/autocomplete", function (req, res, err) {
 app.post("/picacoin/matches/new", function (req, res, err) {
 	var p1 = req.body.player1;
 	var p2 = req.body.player2;
+	var m_name = req.body.m_name;
 
 	getConnection();
 
-	var m_name = req.body.m_name;
 	var sql = "SELECT * FROM `users` WHERE `login`=" + connection.escape(p1) + " OR `login`=" + connection.escape(p2);
 	connection.query(sql, function(err, results){
 		if(err){
@@ -337,7 +346,8 @@ app.post("/picacoin/matches/new", function (req, res, err) {
 			return;
 		}
 
-		sql = "INSERT INTO `match` (id, name, player1, player2, in_course, creation_date, end_date) VALUES (0, " + (connection.escape(m_name) || (connection.escape(p1) + " vs " + connection.escape(p2)) )+ ", " +connection.escape(p1)+ ", " +connection.escape(p2)+ ", 1, NOW(), NOW())";
+		var match_name = (m_name == "" || connection.escape(m_name) == null || m_name == null) ? ("'"+p1 + " vs " + p2+"'") : connection.escape(m_name) ;
+		sql = "INSERT INTO `match` (id, name, player1, player2, in_course, creation_date, end_date) VALUES (0, " + match_name + ", " +connection.escape(p1)+ ", " +connection.escape(p2)+ ", 1, NOW(), NOW())";
 
 		connection.query(sql, function(err, results){
 			if(err){
@@ -348,7 +358,7 @@ app.post("/picacoin/matches/new", function (req, res, err) {
 			res.json({
 				success:{
 					match_id: results.insertId,
-					match_name : m_name,
+					match_name : match_name,
 					player1 : p1,
 					player2 : p2
 				}

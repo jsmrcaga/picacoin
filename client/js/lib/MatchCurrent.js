@@ -12,7 +12,13 @@ function MatchCurrent (m_id, name, p1, p2) {
 	this.player1 = {};
 	this.player2 = {};
 	this.player1.id = p1.id;
+	this.player1.name = p1.name;
+	this.player1.last_name = p1.last_name;
+
 	this.player2.id = p2.id;
+	this.player2.name = p2.name;
+	this.player2.last_name = p2.last_name;
+	
 	// this.player1.name = p1.name;
 	// this.player2.name = p2.name;
 
@@ -73,9 +79,9 @@ MatchCurrent.prototype.build = function _buildMatch(){
 	var  stats_a = document.createElement("a");
 	stats_a.innerHTML = "Stats";
 	var  stats_1 = document.createElement("a");
-	stats_1.innerHTML = this.player1.id;
+	stats_1.innerHTML = this.player1.name + " " + this.player1.last_name;
 	var  stats_2 = document.createElement("a");
-	stats_2.innerHTML = this.player2.id;
+	stats_2.innerHTML = this.player2.name + " " + this.player2.last_name;
 		card_act.appendChild(stats_a);
 		card_act.appendChild(stats_1);
 		card_act.appendChild(stats_2);
@@ -116,7 +122,7 @@ MatchCurrent.prototype.updateChart = function _updateChartCurrent (data) {
 	if(this.first_update){
 
 		for(var i = 0; i < data.players.length; i++){
-			var p = this.chart.series.findObjectByProp("name", data.players[i].name).found_index;
+			var p = this.chart.series.findObjectByProp("id", data.players[i].name).found_index;
 
 			for(var j = 0; j< data.players[i].history.length; j++){
 				var date = new Date(data.players[i].history[j].date);
@@ -149,7 +155,7 @@ MatchCurrent.prototype.updateChart = function _updateChartCurrent (data) {
 		}
 
 		var date = new Date(data.players[i].history[data.players[i].history.length -1].date);
-		var p = this.chart.series.findObjectByProp("name", data.players[i].name).found_index;
+		var p = this.chart.series.findObjectByProp("id", data.players[i].name).found_index;
 		// this.chart.series[p].addPoint(data.players[i].score, true, false);
 		this.chart.series[p].addPoint([Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()), sum], true, false);
 	}
@@ -185,16 +191,18 @@ MatchCurrent.prototype.drawChart = function _drawChart (argument) {
 				valueSuffix: 'points'
 			},
 			legend: {
-				layout: 'vertical',
-				align: 'right',
-				verticalAlign: 'middle',
+				layout: 'horizontal',
+				align: 'center',
+				verticalAlign: 'bottom',
 				borderWidth: 0
 			},
 			series: [{
-				name: parent.player1.id,
+				id: parent.player1.id,
+				name: parent.player1.name + " " + parent.player1.last_name,
 				data: []
 			}, {
-				name: parent.player2.id,
+				id: parent.player2.id,
+				name: parent.player2.name + " " + parent.player2.last_name,
 				data: [],
 				color: "#B22132"
 			}],
@@ -203,6 +211,8 @@ MatchCurrent.prototype.drawChart = function _drawChart (argument) {
 			}
 		});
 	this.chart = $("#"+this.div_id).highcharts();
+	this.chart.series[0].id = parent.player1.id;
+	this.chart.series[1].id = parent.player2.id;
 	// console.log("Chart:", this.chart);
 }
 
@@ -242,19 +252,25 @@ MatchCurrentManager.prototype.addMatch = function _addMatch (match) {
 MatchCurrentManager.prototype.addMatches = function _addMatches (matches) {
 	var parent = this;
 	matches = JSON.parse(matches);
+	// console.log(matches);
 
 	for(var i = 0; i< matches.length; i++){
-		parent.current_matches.push(new MatchCurrent(matches[i].match_id, matches[i].name, {id:matches[i].player1}, {id:matches[i].player2}));
+		parent.current_matches.push(new MatchCurrent(matches[i].match_id, matches[i].name, {id:matches[i].player1.login, name: matches[i].player1.name, last_name: matches[i].player1.last_name},
+																						   {id:matches[i].player2.login, name: matches[i].player2.name, last_name: matches[i].player2.last_name}));
 	}
 };
 
 //get current is asyyync!
 MatchCurrentManager.prototype.getCurrent = function _getCurrentMatches(callback) {
+	var rand = parseInt(Math.random() * 10000);
+	
 	var options = {
-		url : config.api.endpoint + "/matches/current",
+		url : config.api.endpoint + "/matches/current?rand="+rand,
 		method: "GET",
 		callback:  callback
 	};
+
+	// console.log(options.url);
 
 	AJAXCall(options);
 };

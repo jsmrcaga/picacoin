@@ -23,7 +23,7 @@ function authenticate (data) {
 	console.log(data);
 
 	if(!data["cas:serviceResponse"] || data["cas:serviceResponse"]["cas:authenticationFailure"]){
-		Materialize.toast("Error with CAS auth: " + data["cas:serviceResponse"]["cas:authenticationFailure"]["$content"]);
+		Materialize.toast("Error with CAS auth: " + data["cas:serviceResponse"]["cas:authenticationFailure"]["$content"], config.toast_duration);
 		config.cas.loggedIn = false;
 		config.cas.loggedUser ="";
 		if(data["cas:serviceResponse"]["cas:authenticationFailure"]["code"] == "INVALID_TICKET"){
@@ -65,21 +65,21 @@ function authenticate (data) {
 						method: "POST",
 						callback : function(data){
 							if("error" in data){
-								Materialize.toast("Error with request: ", data.error.message);
+								Materialize.toast("Error with request: " + data.error.message, config.toast_duration);
 								return;
 							}
-							Materialize.toast("User " + data.success.usr_login + " created successfully");
+							Materialize.toast("User " + data.success.usr_login + " created successfully", config.toast_duration);
 						}
 					};
 
 					AJAXCall(options);
 				}else{
-					Materialize.toast("Error with request: ", data.error.message);
+					Materialize.toast("Error with request: " + data.error.message, config.toast_duration);
 				}
 			}
 
 			document.getElementById("statsTitle").innerHTML += " - " + config.cas.loggedUser;
-			Materialize.toast(config.cas.loggedUser + " logged in");
+			Materialize.toast(config.cas.loggedUser + " logged in", config.toast_duration);
 			buildCtrls();
 		}
 	};
@@ -127,7 +127,7 @@ document.getElementById("create_n_match_button").addEventListener('click', funct
 		callback: function(data){
 			data = JSON.parse(data);
 			if("error" in data || !data) throwError("Error while creating new Match:" + data.error.message);
-			if("success" in data) Materialize.toast("Match #" +data.success.match_id +": " + data.success.match_name + " created successfully!");
+			if("success" in data) Materialize.toast("Match #" +data.success.match_id +": " + data.success.match_name + " created successfully!", config.toast_duration);
 		}
 	};
 
@@ -137,7 +137,7 @@ document.getElementById("create_n_match_button").addEventListener('click', funct
 document.getElementById("showMatchCreation").addEventListener('click', function(e){
 	if(!config.cas.loggedIn){
 		e.preventDefault();
-		Materialize.toast("Please log in before creating new matches");
+		Materialize.toast("Please log in before creating new matches", config.toast_duration);
 		return;
 	}
 
@@ -221,7 +221,7 @@ function buildCtrls() {
 			var container = document.querySelector("#statsModal div.modal-content");
 			container.innerHTML = "<h4 id=\"statsTitle\">Statistiques - "+config.cas.loggedUser+"</h4>\n<h5>Mes matchs en cours</h5>";
 			if(!data.matches) {
-				Materialize.toast("No matches for player " + config.cas.loggedUser);
+				Materialize.toast("No matches for player " + config.cas.loggedUser, config.toast_duration);
 				return;
 			}
 
@@ -257,10 +257,10 @@ function buildCtrls() {
 							callback : function(data){
 								data = JSON.parse(data);
 								if("error" in data) {
-									Materialize.toast(data.error.message);
+									Materialize.toast(data.error.message, config.toast_duration);
 									return;
 								}
-								Materialize.toast(data.success.message);
+								Materialize.toast(data.success.message, config.toast_duration);
 
 							}
 						};
@@ -290,10 +290,10 @@ function buildCtrls() {
 							callback : function(data){
 								data = JSON.parse(data);
 								if("error" in data) {
-									Materialize.toast(data.error.message);
+									Materialize.toast(data.error.message, config.toast_duration);
 									return;
 								}
-								Materialize.toast(data.success.message);
+								Materialize.toast(data.success.message, config.toast_duration);
 
 							}
 						};
@@ -327,10 +327,10 @@ function buildCtrls() {
 							callback : function(data){
 								data = JSON.parse(data);
 								if("error" in data) {
-									Materialize.toast(data.error.message);
+									Materialize.toast(data.error.message, config.toast_duration);
 									return;
 								}
-								Materialize.toast(data.success.message);
+								Materialize.toast(data.success.message, config.toast_duration);
 
 							}
 						};
@@ -358,10 +358,10 @@ function buildCtrls() {
 							callback : function(data){
 								data = JSON.parse(data);
 								if("error" in data) {
-									Materialize.toast(data.error.message);
+									Materialize.toast(data.error.message, config.toast_duration);
 									return;
 								}
-								Materialize.toast(data.success.message);
+								Materialize.toast(data.success.message, config.toast_duration);
 
 							}
 						};

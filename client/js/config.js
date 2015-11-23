@@ -25,13 +25,13 @@ var config = {
 	},
 
 	cas:{
-		url: "https://cas.utc.fr/cas/",
+		url: "https://cas.utc.fr/cas",
 		service: window.location.origin + window.location.pathname,
 		loggedIn: false,
 		loggedUser : null,
 		user_name: null,
 		user_lname: null
 	},
-
+	toast_duration:5000,
 	autocomplete: []
 }
